@@ -1,0 +1,12 @@
+{
+  "name": "toolkit-pro",
+  "version": "1.0.0",
+  "description": "4-in-1 SaaS Toolkit",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}
