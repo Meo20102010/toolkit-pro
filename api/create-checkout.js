@@ -27,8 +27,8 @@ module.exports = async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: `${req.headers.origin || 'http://localhost:3000'}/public/success.html`,
-      cancel_url: `${req.headers.origin || 'http://localhost:3000'}/public/index.html`,
+      success_url: `${req.headers.origin || 'http://localhost:3000'}/success.html?success=1`,
+      cancel_url: `${req.headers.origin || 'http://localhost:3000'}/index.html`,
     });
 
     res.status(200).json({ url: session.url });
