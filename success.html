@@ -20,8 +20,14 @@
 <div class="box">
   <div class="icon">🎉</div>
   <h1>Ödeme Başarılı!</h1>
-  <p>ToolKit Pro'ya hoş geldin! Artık tüm araçları sınırsız kullanabilirsin. Aboneliğin hemen aktif edildi.</p>
-  <a href="index.html" class="btn" onclick="localStorage.setItem('toolkit_pro',true)">Araçlara Git →</a>
+  <p>ToolKit Pro'ya hoş geldin! Yönlendiriliyorsun...</p>
+  <a href="index.html?success=1" class="btn" id="goBtn">Araçlara Git →</a>
 </div>
+<script>
+  // Auto redirect after 2s
+  setTimeout(() => { window.location.href = 'index.html?success=1'; }, 2000);
+  // Also handle click
+  document.getElementById('goBtn').onclick = () => { localStorage.setItem('toolkit_pro', 'true'); };
+</script>
 </body>
 </html>

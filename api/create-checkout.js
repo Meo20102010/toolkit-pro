@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: `${req.headers.origin || 'http://localhost:3000'}/success.html?success=1`,
+      success_url: `${req.headers.origin || 'http://localhost:3000'}/index.html?success=1`,
       cancel_url: `${req.headers.origin || 'http://localhost:3000'}/index.html`,
     });
 

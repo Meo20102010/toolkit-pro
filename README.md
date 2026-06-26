@@ -3,11 +3,10 @@
 ## Klasör Yapısı
 ```
 toolkit-pro/
-├── public/
-│   ├── index.html      ← Ana uygulama
-│   └── success.html    ← Ödeme sonrası sayfa
+├── index.html           ← Ana uygulama
+├── success.html         ← Ödeme sonrası sayfa
 ├── api/
-│   └── create-checkout.js  ← Stripe API
+│   └── create-checkout.js  ← Stripe API (Serverless Function)
 ├── package.json
 ├── vercel.json
 └── README.md
@@ -19,15 +18,14 @@ toolkit-pro/
 
 1. stripe.com'a git → Hesap aç
 2. Dashboard → Developers → API Keys
-3. **Publishable Key** ve **Secret Key**'i kopyala
+3. **Secret Key**'i kopyala (`sk_test_...` veya `sk_live_...`)
 
 ---
 
 ## ADIM 2: GitHub'a Yükle
 
 1. github.com → "New repository" → "toolkit-pro" → Create
-2. Bilgisayarında terminal aç ve şunları çalıştır:
-
+2. Terminal:
 ```bash
 cd toolkit-pro
 git init
@@ -44,29 +42,44 @@ git push -u origin main
 
 1. vercel.com → GitHub ile giriş yap
 2. "New Project" → GitHub reposunu seç → Import
-3. **Environment Variables** bölümüne ekle:
+3. **Environment Variables** ekle:
    - Key: `STRIPE_SECRET_KEY`
-   - Value: `sk_live_...` (Stripe'dan kopyaladığın secret key)
-4. "Deploy" tıkla → 2 dakika bekle → Siteniz hazır! 🎉
+   - Value: `sk_test_...` (Stripe Secret Key)
+   - Environments: **Production, Preview, Development** (hepsini işaretle)
+4. "Deploy" → 2 dk bekle → Canlı! 🎉
 
 ---
 
-## ADIM 4: Stripe'da Fiyatı Ayarla (İsteğe Bağlı)
+## ADIM 4: Fiyat Değiştirmek (İsteğe Bağlı)
 
-`api/create-checkout.js` dosyasında fiyatı değiştirebilirsin:
-- `unit_amount: 29900` → 299 TL (kuruş cinsinden yazılır)
+`api/create-checkout.js`:
+- `unit_amount: 29900` → 299 TL (kuruş cinsinden)
 - `currency: 'try'` → Türk Lirası
 
 ---
 
 ## Freemium Sistemi
 
-- Kullanıcılar **3 ücretsiz indirme** hakkına sahip
-- Sonrasında ödeme ekranı açılır
-- Ödeme sonrası "Pro" etiketi aktif olur
+- 3 ücretsiz indirme/kullanım
+- Sonrası paywall açılır
+- Ödeme sonrası "Pro" aktif (localStorage)
 
 ---
 
-## Destek
+## Test Kartı (Stripe Test Modu)
 
-Sorun yaşarsan, tüm kodu Claude'a yapıştır ve "hata var" de!
+```
+4242 4242 4242 4242
+12/34 (gelecek tarih)
+123 (CVC)
+12345 (ZIP)
+```
+
+---
+
+## Sorun Giderme
+
+- **API 404 verirse**: Vercel Dashboard → Functions → `create-checkout` var mı?
+- **JSON parse hatası**: Functions loglarını kontrol et
+- **Ödeme çalışmıyor**: STRIPE_SECRET_KEY doğru mu? (sk_test_ ile başlar)
+```
